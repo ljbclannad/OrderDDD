@@ -1,17 +1,70 @@
 # Getting Started
 
-### Reference Documentation
+## Reference Documentation
 
-For further reference, please consider the following sections:
+* [Build architecture](doc/构建架构.md)
 
-* [Official Apache Maven documentation](https://maven.apache.org/guides/index.html)
-* [Spring Boot Maven Plugin Reference Guide](https://docs.spring.io/spring-boot/3.4.0/maven-plugin)
-* [Create an OCI image](https://docs.spring.io/spring-boot/3.4.0/maven-plugin/build-image.html)
+## 系统设计核心对象
 
-### Maven Parent overrides
+* [model](doc/model.md)
 
-Due to Maven's design, elements are inherited from the parent POM to the project POM.
-While most of the inheritance is fine, it also inherits unwanted elements like `<license>` and `<developers>` from the parent.
-To prevent this, the project POM contains empty overrides for these elements.
-If you manually switch to a different parent and actually want the inheritance, you need to remove those overrides.
+## 项目结构
 
+```
+/OrderDDD
+│
+├── /src
+│   ├── /main
+│   │   ├── /java
+│   │   │   └── /com
+│   │   │       └── example
+│   │   │           └── orderddd
+│   │   │               ├── OrderDddApplication.java
+│   │   │               ├── /applicationservice # 应用服务
+│   │   │               │   └── OrderDddApplicationService.java
+│   │   │               ├── /domain # 领域模块
+│   │   │               │   ├── /model # 领域模型
+│   │   │               │   │   ├── /aggregate
+│   │   │               │   │   │   ├── Order.java          # 聚合根
+│   │   │               │   │   │   └── User.java           # 聚合根
+│   │   │               │   │   ├── /entity
+│   │   │               │   │   │   ├── OrderItem.java      # 实体
+│   │   │               │   │   │   └── Product.java        # 实体
+│   │   │               │   │   └── /valueobject
+│   │   │               │   │       ├── Money.java          # 值对象
+│   │   │               │   │       └── Address.java        # 值对象
+│   │   │               │   ├── /service # 领域服务
+│   │   │               │   │   └── OrderService.java
+│   │   │               │   └── /exception # 自定义异常
+│   │   │               │       └── InsufficientStockException.java
+│   │   │               ├── /infrastructure # 基础设施
+│   │   │               │   └── /repository # 持久化仓储
+│   │   │               │   │   └── UserRepository.java
+│   │   │               │   │   └── OrderRepository.java
+│   │   │               │   │   └── ProductRepository.java
+│   │   │               │   └── /config # 配置
+│   │   │               │       └── MyBatisConfig.java
+│   │   │               │   └── /validator # 验证器
+│   │   │               │       └── OrderValidator.java
+│   │   │               ├── /interfaces # 接口
+│   │   │               │   └── /rest
+│   │   │               │       └── OrderController.java
+│   │   │               ├── /anticorruption # 防腐层
+│   │   │               │   ├── /inventory # 库存防腐层
+│   │   │               │   │   ├── InventoryService.java
+│   │   │               │   │   └── ExternalInventoryServiceAdapter.java
+│   │   │               │   └── /payment # 支付防腐层
+│   │   │               │       ├── PaymentService.java
+│   │   │               │       └── ExternalPaymentServiceAdapter.java
+│   │   ├── /resources
+│   │   │   └── application.yaml  # 配置文件
+│   │   └── /test
+│   │       └── /java
+│   │           └── /com
+│   │               └── example
+│   │                   └── orderddd
+│   │                       └── OrderServiceTest.java
+│   └── /docs
+│       └── architecture.md  # 项目架构文档
+└── pom.xml  # Maven 或 Gradle 配置文件
+```

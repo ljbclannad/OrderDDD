@@ -1,0 +1,10 @@
+server:
+  port: 8081
+spring:
+  application:
+    name: OrderDDD
+  datasource:
+    url: jdbc:postgresql://101.43.97.81:5432/order_ddd
+    username: postgres
+    password: xxxx
+    driver-class-name: org.postgresql.Driver
