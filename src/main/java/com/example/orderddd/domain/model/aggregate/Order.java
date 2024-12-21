@@ -24,8 +24,10 @@ public class Order {
     private Money totalAmount;
     /**
      * 订单状态
+     * 
+     * @see com.example.orderddd.domain.model.valueobject.OrderStatus
      */
-    private OrderStatus status;
+    private OrderStatus status = OrderStatus.PENDING;
     /**
      * 订单项
      */
@@ -35,4 +37,9 @@ public class Order {
      * 是否使用储值卡
      */
     private Boolean useStoredValueCard;
+
+    // 取消订单
+    public void cancelOrder() {
+        this.status = OrderStatus.CANCELLED;
+    }
 }

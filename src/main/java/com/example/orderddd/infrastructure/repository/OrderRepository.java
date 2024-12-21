@@ -1,9 +1,12 @@
 package com.example.orderddd.infrastructure.repository;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.orderddd.domain.model.aggregate.Order;
 import com.example.orderddd.domain.model.entity.OrderItem;
@@ -28,7 +31,7 @@ public class OrderRepository extends ServiceImpl<OrderMapper, Order> {
 
     @Transactional
     public void saveOrder(Order order) {
-        //保存order
+        // 保存order
         save(order);
 
         // 保存 OrderItems
@@ -36,5 +39,13 @@ public class OrderRepository extends ServiceImpl<OrderMapper, Order> {
             item.setOrderId(order.getOrderId()); // 设置双向关联
             orderItemMapper.insert(item);
         }
+    }
+
+    public Order findOrderDetailById(String orderId) {
+        Order order = getById(orderId);
+        List<OrderItem> items = orderItemMapper
+                .selectList(Wrappers.<OrderItem>lambdaQuery().eq(OrderItem::getOrderId, orderId));
+        order.setItems(items);
+        return order;
     }
 }

@@ -1,10 +1,10 @@
 package com.example.orderddd.domain.model.aggregate;
 
-import java.util.List;
 
-import com.example.orderddd.domain.model.entity.StoredValueCard;
+
 import com.example.orderddd.domain.model.valueobject.Address;
 import com.example.orderddd.domain.model.valueobject.Email;
+import com.example.orderddd.domain.model.valueobject.Money;
 import com.example.orderddd.domain.model.valueobject.PhoneNumber;
 
 /**
@@ -35,9 +35,17 @@ public record User (
      */
     Address address,
     /**
-     * 用户储值卡
+     * 用户储值金额
      */
-    List<StoredValueCard> storedValueCards
+    Money storedValues
 ) {
+    public User deductStoredValue(Money amount) {
+        Money newStoredValues = storedValues.subtract(amount);
+        return new User(userId, name, email, phoneNumber, address, newStoredValues);
+    }
 
+    public User addStoredValue(Money amount) {
+        Money newStoredValues = storedValues.add(amount);
+        return new User(userId, name, email, phoneNumber, address, newStoredValues);
+    }
 }

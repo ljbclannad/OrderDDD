@@ -33,4 +33,14 @@ public class Product {
      * 商品库存
      */
     private int stock;
+
+    // 扣减库存
+    public void subtractProduct(int quantity) {
+        this.stock -= quantity;
+    }
+
+    // 增加库存
+    public void addProduct(int quantity) {
+        this.stock += quantity;
+    }
 }
