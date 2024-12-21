@@ -16,10 +16,14 @@ import com.example.orderddd.domain.service.OrderDomainService;
 import com.example.orderddd.domain.service.ProductDomainService;
 import com.example.orderddd.domain.service.UserDomainService;
 import com.example.orderddd.infrastructure.config.rabbitmq.DelayMessageSender;
+import com.example.orderddd.infrastructure.config.rabbitmq.RabbitMQConfig;
+import com.example.orderddd.infrastructure.config.rabbitmq.RabbitMessageSender;
 import com.example.orderddd.infrastructure.repository.OrderRepository;
 import com.example.orderddd.infrastructure.repository.ProductRepository;
 import com.example.orderddd.infrastructure.repository.UserRepository;
 import com.example.orderddd.interfaces.remote.PaymentClient;
+
+import cn.hutool.json.JSONUtil;
 
 /**
  * 订单应用服务
@@ -47,10 +51,11 @@ public class OrderApplicationService {
     @Autowired
     private ProductRepository productRepository;
 
-    private PaymentClient paymentClient;
-
     @Autowired
     private DelayMessageSender delayMessageSender;
+
+    @Autowired
+    private RabbitMessageSender rabbitMessageSender;
 
     /**
      * 创建订单
@@ -113,8 +118,8 @@ public class OrderApplicationService {
 
         // 事件异步通知调用第三方支付
         if (thirdPay) {
-            PayFactory payFactory = PayFactory.getPayFactory(payOrderCommand.getPayType());
-            payFactory = PaymentClient.getPaymentClient(payFactory).pay(payFactory);
+            rabbitMessageSender.sendMessage(RabbitMQConfig.ORDER_PAY_EXCHANGE_NAME,
+                    RabbitMQConfig.ORDER_PAY_ROUTING_KEY, JSONUtil.toJsonStr(payOrderCommand));
         }
 
         // 保存用户
@@ -123,4 +128,9 @@ public class OrderApplicationService {
         orderRepository.updateById(order);
     }
 
+    public void thirdPay(PayOrderCommand payOrderCommand) {
+        // 调用第三方支付
+        PayFactory payFactory = PayFactory.getPayFactory(payOrderCommand.getPayType());
+        payFactory = PaymentClient.getPaymentClient(payFactory).pay(payFactory);
+    }
 }

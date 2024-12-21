@@ -22,6 +22,7 @@
 │   │   │               ├── OrderDddApplication.java
 │   │   │               ├── /applicationservice # 应用服务
 │   │   │               │   └── OrderDddApplicationService.java
+│   │   │               │   └── UserApplicationService.java
 │   │   │               ├── /domain # 领域模块
 │   │   │               │   ├── /model # 领域模型
 │   │   │               │   │   ├── /aggregate
@@ -34,7 +35,9 @@
 │   │   │               │   │       ├── Money.java          # 值对象
 │   │   │               │   │       └── Address.java        # 值对象
 │   │   │               │   ├── /service # 领域服务
-│   │   │               │   │   └── OrderService.java
+│   │   │               │   │   └── OrderDomainService.java
+│   │   │               │   │   └── UserDomainService.java
+│   │   │               │   │   └── ProductDomainService.java
 │   │   │               │   └── /exception # 自定义异常
 │   │   │               │       └── InsufficientStockException.java
 │   │   │               ├── /infrastructure # 基础设施
@@ -44,18 +47,28 @@
 │   │   │               │   │   └── ProductRepository.java
 │   │   │               │   └── /config # 配置
 │   │   │               │       └── MyBatisConfig.java
+│   │   │               │   └── /rabbitmq # rabbitmq配置
+│   │   │               │       └── RabbitMQConfig.java
+│   │   │               │       └── RabbitMessageSender.java
+│   │   │               │       └── MessageReceiver.java
+│   │   │               │       └── DelayMessageSender.java
 │   │   │               │   └── /validator # 验证器
 │   │   │               │       └── OrderValidator.java
 │   │   │               ├── /interfaces # 接口
 │   │   │               │   └── /rest
 │   │   │               │       └── OrderController.java
+│   │   │               │   └── /remote # 远程调用
+│   │   │               │       └── PaymentClient.java
+│   │   │               │       └── AliPaymentClient.java
+│   │   │               │       └── WeChatPaymentClient.java
 │   │   │               ├── /anticorruption # 防腐层
-│   │   │               │   ├── /inventory # 库存防腐层
-│   │   │               │   │   ├── InventoryService.java
-│   │   │               │   │   └── ExternalInventoryServiceAdapter.java
+│   │   │               │   ├── /cqrs 
+│   │   │               │       └── PayOrderCommand.java
+│   │   │               │       └── CancelOrderCommand.java
 │   │   │               │   └── /payment # 支付防腐层
-│   │   │               │       ├── PaymentService.java
-│   │   │               │       └── ExternalPaymentServiceAdapter.java
+│   │   │               │       └── PayFactory.java
+│   │   │               │       └── AliPay.java
+│   │   │               │       └── WeChatPay.java
 │   │   ├── /resources
 │   │   │   └── application.yaml  # 配置文件
 │   │   └── /test
