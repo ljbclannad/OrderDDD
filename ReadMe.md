@@ -4,10 +4,6 @@
 
 * [Build architecture](doc/构建架构.md)
 
-## 系统设计核心对象
-
-* [model](doc/model.md)
-
 ## 项目结构
 
 ```
