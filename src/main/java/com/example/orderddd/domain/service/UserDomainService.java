@@ -1,7 +1,5 @@
 package com.example.orderddd.domain.service;
 
-import java.math.BigDecimal;
-
 import com.example.orderddd.domain.model.aggregate.User;
 import com.example.orderddd.domain.model.valueobject.Money;
 
@@ -22,10 +20,10 @@ public class UserDomainService {
      * 扣除用户储值金额
      * 
      * @param amount 金额
-     * @param user 用户
+     * @param user   用户
      * @return 新用户
      */
-    public User deductStoredValue(Money amount,User user) {
+    public User deductStoredValue(Money amount, User user) {
         return user.deductStoredValue(amount);
     }
 }

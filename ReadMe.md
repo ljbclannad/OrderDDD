@@ -42,14 +42,17 @@
 │   │   │               │   │   └── OrderRepository.java
 │   │   │               │   │   └── ProductRepository.java
 │   │   │               │   └── /config # 配置
-│   │   │               │       └── MyBatisConfig.java
+│   │   │               │   │   └── MyBatisConfig.java
 │   │   │               │   └── /rabbitmq # rabbitmq配置
-│   │   │               │       └── RabbitMQConfig.java
-│   │   │               │       └── RabbitMessageSender.java
-│   │   │               │       └── MessageReceiver.java
-│   │   │               │       └── DelayMessageSender.java
+│   │   │               │   │   └── RabbitMQConfig.java
+│   │   │               │   │   └── RabbitMessageSender.java
+│   │   │               │   │   └── MessageReceiver.java
+│   │   │               │   │   └── DelayMessageSender.java
 │   │   │               │   └── /validator # 验证器
-│   │   │               │       └── OrderValidator.java
+│   │   │               │   │   └── /jwt # 配置
+│   │   │               │   │   │   └── JwtConfig.java
+│   │   │               │   │   │   └── JwtRequestFilter.java
+│   │   │               │   │   │   └── SecurityConfig.java
 │   │   │               ├── /interfaces # 接口
 │   │   │               │   └── /rest
 │   │   │               │       └── OrderController.java

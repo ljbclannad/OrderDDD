@@ -1,10 +1,10 @@
 package com.example.orderddd.applicationservice;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.example.orderddd.domain.model.aggregate.User;
-import com.example.orderddd.domain.service.UserDomainService;
 import com.example.orderddd.infrastructure.repository.UserRepository;
 
 /**
@@ -19,10 +19,16 @@ public class UserApplicationService {
     @Autowired
     private UserRepository userRepository;
 
-    private UserDomainService userDomainService;
-
     public User getUser(String userId) {
         return userRepository.findById(userId);
+    }
+
+    public String loadUserByUsername(String username) throws UsernameNotFoundException {
+        User user = userRepository.findByUsername(username);
+        if (user == null) {
+            throw new UsernameNotFoundException("User not found");
+        }
+        return user.name();
     }
 
 }
