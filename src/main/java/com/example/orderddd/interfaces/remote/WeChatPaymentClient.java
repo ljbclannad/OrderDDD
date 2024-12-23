@@ -6,7 +6,6 @@ public class WeChatPaymentClient implements PaymentClient {
 
     @Override
     public PayFactory pay(PayFactory payFactory) {
-        // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'getPaymentRequest'");
     }
 }

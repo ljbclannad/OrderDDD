@@ -19,8 +19,8 @@ public class UserApplicationService {
     @Autowired
     private UserRepository userRepository;
 
-    public User getUser(String userId) {
-        return userRepository.findById(userId);
+    public User getUser(Integer userId) {
+        return userRepository.getById(userId);
     }
 
     public String loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -28,7 +28,7 @@ public class UserApplicationService {
         if (user == null) {
             throw new UsernameNotFoundException("User not found");
         }
-        return user.name();
+        return user.getName();
     }
 
 }

@@ -6,7 +6,7 @@ spring:
   datasource:
     url: jdbc:postgresql://101.43.97.81:5432/order_ddd
     username: postgres
-    password: xxxx
+    password: root
     driver-class-name: org.postgresql.Driver
   rabbitmq:
     host: 101.43.97.81

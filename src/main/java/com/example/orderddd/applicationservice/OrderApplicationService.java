@@ -105,9 +105,9 @@ public class OrderApplicationService {
         User user = userRepository.findById(order.getUserId());
         boolean thirdPay = false;
         if (order.getUseStoredValueCard()) {
-            if (user.storedValues().getAmount().compareTo(order.getTotalAmount().getAmount()) < 0) {
+            if (user.getStoredValues().getAmount().compareTo(order.getTotalAmount().getAmount()) < 0) {
                 // 调用储值卡服务
-                user = userDomainService.deductStoredValue(user.storedValues(), user);
+                user = userDomainService.deductStoredValue(user.getStoredValues(), user);
                 thirdPay = true;
             } else {
                 user = userDomainService.deductStoredValue(order.getTotalAmount(), user);

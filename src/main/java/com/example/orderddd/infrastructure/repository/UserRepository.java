@@ -15,6 +15,6 @@ public class UserRepository extends ServiceImpl<UserMapper, User> {
     }
 
     public User findByUsername(String username) {
-        return Wrappers.<User>lambdaQuery().eq(User::name, username).getEntity();
+        return getOne(Wrappers.<User>lambdaQuery().eq(User::getName, username));
     }
 }

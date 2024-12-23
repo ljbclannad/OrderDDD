@@ -24,6 +24,7 @@ public class UserDomainService {
      * @return 新用户
      */
     public User deductStoredValue(Money amount, User user) {
-        return user.deductStoredValue(amount);
+        user.deductStoredValue(amount);
+        return user;
     }
 }

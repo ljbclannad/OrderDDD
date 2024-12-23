@@ -1,11 +1,15 @@
 package com.example.orderddd.domain.model.aggregate;
 
-
-
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import com.example.orderddd.domain.model.valueobject.Address;
 import com.example.orderddd.domain.model.valueobject.Email;
 import com.example.orderddd.domain.model.valueobject.Money;
 import com.example.orderddd.domain.model.valueobject.PhoneNumber;
+
+import lombok.Data;
 
 /**
  * 聚合根-用户
@@ -13,39 +17,43 @@ import com.example.orderddd.domain.model.valueobject.PhoneNumber;
  * @author lejb
  * @version 1.0
  */
-public record User (
+@TableName("public.user")
+@Data
+public class User {
     /**
      * 用户ID
      */
-    String userId,
+    @TableId(type = IdType.ASSIGN_ID)
+    public Integer userId;
     /**
      * 用户名
      */
-    String name,
+    public String name;
     /**
      * 用户邮箱
      */
-    Email email,
+    public Email email;
     /**
      * 用户手机号
      */
-    PhoneNumber phoneNumber,
+    public PhoneNumber phoneNumber;
     /**
      * 用户地址
      */
-    Address address,
+    @TableField(exist = false)
+    public Address address;
     /**
      * 用户储值金额
      */
-    Money storedValues
-) {
-    public User deductStoredValue(Money amount) {
-        Money newStoredValues = storedValues.subtract(amount);
-        return new User(userId, name, email, phoneNumber, address, newStoredValues);
+    @TableField(exist = false)
+    public Money storedValues;
+
+    public void deductStoredValue(Money amount) {
+        this.storedValues = storedValues.subtract(amount);
     }
 
-    public User addStoredValue(Money amount) {
-        Money newStoredValues = storedValues.add(amount);
-        return new User(userId, name, email, phoneNumber, address, newStoredValues);
+    public void addStoredValue(Money amount) {
+        this.storedValues = storedValues.add(amount);
     }
+
 }

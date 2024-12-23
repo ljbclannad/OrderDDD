@@ -9,8 +9,6 @@ import org.springframework.scheduling.annotation.Scheduled;
 public class OrderScheduled {
 
     @Scheduled(cron = "0/10 * * * * ?")
-    // TODO MQ延时关闭订单
     public void scheduled() {
-        System.out.println("scheduled");
     }
 }

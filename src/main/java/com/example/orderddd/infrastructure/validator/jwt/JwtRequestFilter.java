@@ -44,6 +44,9 @@ public class JwtRequestFilter extends OncePerRequestFilter {
             if (jwtConfig.validateToken(jwt, userName)) {
                 // 设置安全上下文
                 log.info("JwtRequestFilter: {}", userName);
+                // UsernamePasswordAuthenticationToken authToken = new
+                // UsernamePasswordAuthenticationToken(userName, null);
+                // SecurityContextHolder.getContext().setAuthentication(authToken);
             }
         }
         filterChain.doFilter(request, response);
