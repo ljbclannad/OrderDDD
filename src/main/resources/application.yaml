@@ -13,3 +13,9 @@ spring:
     port: 5672
     username: myuser
     password: mypassword
+nacos:
+  discovery:
+    server-addr: 154.21.201.99:8848
+  config:
+    data-id: orderDDD
+    group: DEFAULT_GROUP

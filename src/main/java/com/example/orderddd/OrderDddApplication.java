@@ -6,9 +6,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
 @SpringBootApplication
-@MapperScan(basePackages = {"com.example.orderddd.infrastructure.repository.mapper"})
+@MapperScan(basePackages = { "com.example.orderddd.infrastructure.repository.mapper" })
 @EnableScheduling
-//TODO 设计一套主从数据库
+// TODO 设计一套主从数据库
 public class OrderDddApplication {
 
     public static void main(String[] args) {
