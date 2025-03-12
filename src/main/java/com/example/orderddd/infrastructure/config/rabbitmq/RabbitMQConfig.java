@@ -2,6 +2,7 @@ package com.example.orderddd.infrastructure.config.rabbitmq;
 
 import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.BindingBuilder;
+import org.springframework.amqp.core.DirectExchange;
 import org.springframework.amqp.core.Queue;
 import org.springframework.amqp.core.QueueBuilder;
 import org.springframework.amqp.core.TopicExchange;
@@ -23,6 +24,8 @@ public class RabbitMQConfig {
     public static final String ORDER_PAY_EXCHANGE_NAME = "orderPayExchange";
     public static final String ORDER_PAY_ROUTING_KEY = "orderPayRoutingKey";
 
+
+    // 绑定死信队列
     @Bean
     public Queue orderDelayQueue() {
         return QueueBuilder.durable(ORDER_DELAY_QUEUE_NAME)
@@ -38,8 +41,8 @@ public class RabbitMQConfig {
     }
 
     @Bean
-    public TopicExchange orderDelayExchange() {
-        return new TopicExchange(ORDER_DELAY_EXCHANGE_NAME);
+    public DirectExchange orderDelayExchange() {
+        return new DirectExchange(ORDER_DELAY_EXCHANGE_NAME);
     }
 
     @Bean

@@ -80,6 +80,13 @@
             <artifactId>nacos-discovery-spring-boot-starter</artifactId>
             <version>0.3.0-RC</version>
         </dependency>
+
+        <!-- Spring Boot Logging with Logback -->
+        <dependency>
+            <groupId>net.logstash.logback</groupId>
+            <artifactId>logstash-logback-encoder</artifactId>
+            <version>7.4</version>
+        </dependency>
     </dependencies>
 
     <build>
